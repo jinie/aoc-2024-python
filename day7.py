@@ -9,8 +9,8 @@ def parse_input(filename):
             testvalue,right = l.split(":")
             values = [int(i) for i in right.strip().split(" ")]
             values.insert(0,int(testvalue))
-            ret.append(tuple(values))
-        return tuple(ret)
+            ret.append(values)
+        return ret
 
 calc = {
     '+': lambda x, y: x + y,
@@ -28,15 +28,11 @@ def evaluate_tests(test_data, operators):
             for op, num in zip(ops, rest):
                 result = calc[op](result, num)
             if(result == test):
-                return True
-        return False
+                return result
+        return 0
     
-    ret = 0
-    for tval, *numbers in test_data:
-        if(evaluate(tval, tuple(numbers),operators)):
-            ret+=tval
-    return ret
-
+    return sum([evaluate(tval, tuple(numbers),operators) for tval,*numbers in test_data])
+    
 
 def main():
     data = parse_input("input/day7.txt")

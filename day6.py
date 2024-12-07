@@ -25,7 +25,13 @@ def part1(grid, start):
 
 
 def part2(grid, visited, start):
-    return sum(traverse_loop(grid | {o: '#'}, start)[1] for o in visited[0])
+    return sum(
+        traverse_loop(
+            grid | {o: '#'}, 
+            start
+        )[1] 
+        for o in visited[0]
+    )
 
 
 def main():

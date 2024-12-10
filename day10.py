@@ -5,43 +5,46 @@ def parse_input(filename):
         grid = {(i, j): int(c) for i, r in enumerate(file) for j, c in enumerate(r.strip())}
         return grid
 
-def find_paths(grid):
+def find_paths_and_scores(grid):
     start_positions = [pos for pos, height in grid.items() if height == 0]
     total_score = 0
+    total_ratings = 0
     directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
-    
+
     for start in start_positions:
-        pq = [(0, start, 0)]  # (path_length, (x, y), height)
+        pq = [(0, start, 0, [])]  # (path_length, (x, y), height, path)
         visited = set()
-        reachable_nines = set()
+        distinct_paths = set()
 
         while pq:
-            path_length, (x, y), height = heapq.heappop(pq)
+            path_length, (x, y), height, path = heapq.heappop(pq)
 
-            if ((x, y), height) in visited:
+            if ((x, y), height, tuple(path)) in visited:
                 continue
-            visited.add(((x, y), height))
+            visited.add(((x, y), height, tuple(path)))
             
             if grid[(x, y)] == 9:
-                reachable_nines.add((x, y))
+                distinct_paths.add(tuple(path + [(x, y)]))
                 continue
 
             for dx, dy in directions:
                 neighbor = (x + dx, y + dy)
-                if neighbor in grid and ((neighbor, grid[neighbor])) not in visited:
-                    # Check if the neighbor height is the next in sequence
+                if neighbor in grid:
                     if grid[neighbor] == height + 1:
-                        heapq.heappush(pq, (path_length + 1, neighbor, grid[neighbor]))
+                        heapq.heappush(pq, (path_length + 1, neighbor, grid[neighbor], path + [(x, y)]))
 
-        score = len(reachable_nines)
+        score = len(distinct_paths)  
+        rating = len(set([path[-1] for path in distinct_paths]))  
         total_score += score
+        total_ratings += rating
 
-    return total_score
+    return total_score, total_ratings
 
 def main():
     grid = parse_input('input/day10.txt')
-    result = find_paths(grid)
-    print("Total score:", result)
+    total_score, total_ratings = find_paths_and_scores(grid)
+    print("part 1:", total_ratings)
+    print("part 2:", total_score)
 
 if __name__ == '__main__':
     main()

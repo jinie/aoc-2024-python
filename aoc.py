@@ -1,10 +1,11 @@
 import time
 import os
 import psutil
+from datetime import datetime
 
 
 def elapsed_since(start):
-    return time.strftime("%H:%M:%S", time.gmtime(time.time() - start))
+    return datetime.now() - start
 
 
 def get_process_memory():
@@ -16,7 +17,7 @@ def get_process_memory():
 def profile(func):
     def wrapper(*args, **kwargs):
         mem_before = get_process_memory()
-        start = time.time()
+        start = datetime.now()
         result = func(*args, **kwargs)
         elapsed_time = elapsed_since(start)
         mem_after = get_process_memory()

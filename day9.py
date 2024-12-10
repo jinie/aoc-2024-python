@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from aoc import profile
 
 def parse_input(filename):
     with open(filename) as f:
@@ -14,6 +15,7 @@ def parse_input(filename):
             fs.extend([ix] * l)
         return fs, files_p1, free_space_p1, files_p2, free_space_p2
 
+@profile
 def part1(fs, files, free_space):
     while free_space[0] <= files[-1]:
         i, j = files[-1], free_space[0]
@@ -21,7 +23,8 @@ def part1(fs, files, free_space):
         del files[-1]
         del free_space[0]
     return sum([i * n for i, n in enumerate(fs) if n >= 0])
-    
+
+@profile    
 def part2(fs, files, free_space):
     for file, file_len in files[::-1]:
         for i, (free, free_len) in enumerate(free_space):

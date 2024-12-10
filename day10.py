@@ -1,3 +1,4 @@
+from aoc import profile
 import heapq
 
 def parse_input(filename):
@@ -5,6 +6,7 @@ def parse_input(filename):
         grid = {(i, j): int(c) for i, r in enumerate(file) for j, c in enumerate(r.strip())}
         return grid
 
+@profile
 def find_paths_and_scores(grid):
     start_positions = [pos for pos, height in grid.items() if height == 0]
     total_score = 0

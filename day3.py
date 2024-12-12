@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 
 import re
+from aoc import profile
 
 def parse_input(filename):
     with open(filename) as f:
         return f.read().strip()
 
+@profile
 def part2(s):
     mul = 1
     ret = 0
@@ -16,6 +18,7 @@ def part2(s):
             ret += int(x) * int(y) * mul
     return ret
 
+@profile
 def part1(input):
     return sum([int(x) * int(y) for x, y in re.findall(r'mul\((\d+),(\d+)\)', input)])
 

@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from aoc import profile
 from itertools import product
 from functools import cache
 
@@ -18,6 +19,7 @@ calc = {
     '|': lambda x, y: int(f"{x}{y}"),
 }
 
+@profile
 def evaluate_tests(test_data, operators):
     
     @cache

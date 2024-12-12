@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from aoc import profile
 
 def parse_input(filename):
     with open(filename) as file:
@@ -20,10 +21,11 @@ def traverse_loop(grid, start):
             pos += direction    
     return {p for p, _ in visited}, (pos, direction) in visited
 
+@profile
 def part1(grid, start):
     return traverse_loop(grid, start)
 
-
+@profile
 def part2(grid, visited, start):
     return sum(
         traverse_loop(

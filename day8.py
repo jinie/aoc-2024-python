@@ -17,6 +17,7 @@ def calculate(grid, niter=1):
                            for i in niter]
         
     return len(set(anti) & set(grid))
+
 def part1(grid):
     return calculate(grid,[1])
 

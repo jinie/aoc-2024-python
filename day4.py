@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
+from aoc import profile
 
+@profile
 def count_word_instances(s, word):
     H, W = len(s), len(s[0])-1
     grid = {(y,x):s[y][x] for y in range(H) for x in range(W)}
@@ -11,6 +13,7 @@ def count_word_instances(s, word):
             count += candidate == word
     return count
 
+@profile
 def count_x_shapes(s):
     H, W = len(s), len(s[0])-1
     grid = {(y,x):s[y][x] for y in range(H) for x in range(W)}

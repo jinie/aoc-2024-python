@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
+from aoc import profile
 
 def parse_input(filename):
     data = [*map(int, open(filename).read().split())]
     col1, col2 = sorted(data[0::2]), sorted(data[1::2])
     return list(map(int,col1)), list(map(int,col2))
 
+@profile
 def part1(col1,col2):
     return sum(map(lambda a, b: abs(a-b), col1, col2))
 
+@profile
 def part2(col1,col2):
     return sum(map(lambda a: a * col2.count(a), col1))
 
